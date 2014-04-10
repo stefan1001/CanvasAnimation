@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+
+<body style="background-color: black">
+
+     <canvas id="cv" width="800" height="600" style="background-color: black"></canvas>
+</body>
+<script>
+    window.requestAnimFrame = (function(callback) {
+        return window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || window.oRequestAnimationFrame || window.msRequestAnimationFrame ||
+                function(callback) {
+                    window.setTimeout(callback, 1000 / 60);
+                };
+    })();
+
+    function animate() {
+        var canvas = document.getElementById('cv');
+        var context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+
+         draw();
+        requestAnimFrame(function() {
+            animate();
+        });
+    }
+    var startangle1 = 0;
+    var startangle2 = 0.7;
+    var startangle3 = 0.4;
+    var startangle4 = 0;
+    animate();
+
+
+    function draw() {
+        var x0 = 400;
+        var y0 = 300;
+        var rx = 350;
+        var ry = 250;
+        var angle1 = startangle1;
+        var angle2 = startangle2;
+        var angle3 = startangle3;
+        var angle4 = startangle4;
+        var c = document.getElementById("cv");
+        var ctx = c.getContext("2d");
+        var counter = 0;
+        for (counter = 1; counter < 52; counter++) {
+
+            var x = x0 + rx * Math.sin(angle1) * Math.sin(angle2);
+            var y = y0 + ry * Math.sin(angle3) * Math.sin(angle4);
+            ctx.fillStyle = 'rgb(' + Math.floor(210 - 4 * counter) + ',0,' + Math.floor(40 + 4 * counter) + ')';
+            ctx.beginPath();
+            ctx.arc(x, y, counter + 10, 0, 2 * Math.PI, false);
+            ctx.fill();
+            angle1 += 0.1;
+            angle2 += 0.02;
+            angle3 += 0.05;
+            angle4 += 0.03;
+        }
+        startangle1 += 0.02;
+        startangle2 += 0.12;
+        startangle3 += 0.1;
+        startangle4 += 0.05;
+        if (startangle1 > 2 * Math.PI)
+            startangle1 -= 2 * Math.PI;
+        if (startangle2 > 2 * Math.PI)
+            startangle2 -= 2 * Math.PI;
+        if (startangle3 > 2 * Math.PI)
+            startangle3 -= 2 * Math.PI;
+        if (startangle4 > 2 * Math.PI)
+            startangle4 -= 2 * Math.PI;
+
+    }
+
+</script>
+</html>
